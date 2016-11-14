@@ -1,17 +1,41 @@
 import {Injectable} from '@angular/core';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import './rxjs-operators';
+
+import {mapTastingToRequestObject, mapResponseDataToTasting, mapRequestToTastings} from './mapper';
 import {Tasting, Beer} from './entities';
 import {mockTastings} from './mock-tastings';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class TastingService {
+  private baseUrl = 'http://localhost:5000/api/tastings';
+
+  constructor(private http: Http) {}
+
   getTastings(): Promise<Tasting[]> {
-    return new Promise<Tasting[]>(resolve =>
-      setTimeout(resolve, 1000))
-      .then(() => {return Promise.resolve(mockTastings);});
+    return this.http.get(this.baseUrl)
+                    .map(this.extractArray)
+                    .map(mapRequestToTastings)
+                    .toPromise();
   }
 
-  insertTasting(newTasting: Tasting): boolean {
-    console.log('Inserting tasting', newTasting);
-    return true;
+  insertTasting(newTasting: Tasting): Promise<Tasting> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(this.baseUrl, mapTastingToRequestObject(newTasting), options)
+                    .map(this.extractObject)
+                    .map(mapResponseDataToTasting)
+                    .toPromise();
+  }
+
+  private extractObject(res: Response) {
+    const body = res.json();
+    return body || {};
+  }
+
+  private extractArray(res: Response) {
+    const body = res.json();
+    return body || [];
   }
 }
