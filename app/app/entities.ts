@@ -18,3 +18,19 @@ export class Tasting {
   food: string;
   beer: Beer
 }
+
+export class TastingForm {
+  title: string;
+  date: string;
+  notes: string;
+  grade: number;
+  food: string;
+  beerName: string;
+  beerType: string;
+  beerBrewery: string;
+  beerCountry: string;
+  beerWortStrength: number;
+  beerAlcohol: number;
+  beerColor: number;
+  beerEbu: number;
+}

@@ -6,6 +6,7 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {TastingsComponent} from './tastings.component';
 import {HomeComponent} from './home.component';
+import {TastingFormComponent} from './tasting-form.component';
 
 import {TastingService} from './tasting.service';
 
@@ -15,6 +16,10 @@ import {TastingService} from './tasting.service';
       {
         path: 'tastings',
         component: TastingsComponent
+      },
+      {
+        path: 'tastings/new',
+        component: TastingFormComponent
       },
       {
         path: 'home',
@@ -27,7 +32,7 @@ import {TastingService} from './tasting.service';
       }
     ])
   ],
-  declarations: [AppComponent, TastingsComponent, HomeComponent],
+  declarations: [AppComponent, TastingsComponent, HomeComponent, TastingFormComponent],
   providers: [TastingService],
   bootstrap: [AppComponent]
 })

@@ -9,4 +9,9 @@ export class TastingService {
       setTimeout(resolve, 1000))
       .then(() => {return Promise.resolve(mockTastings);});
   }
+
+  insertTasting(newTasting: Tasting): boolean {
+    console.log('Inserting tasting', newTasting);
+    return true;
+  }
 }
