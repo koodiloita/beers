@@ -1,26 +1,6 @@
-import {Component} from '@angular/core';
-import {Beer, Tasting} from './entities.ts';
-
-const mockTastings: Tasting[] = [
-  {
-    id: '1',
-    title: 'Punk IPA and grilled salmon',
-    date: '2016-01-02',
-    notes: 'Great beer with lots of hops. Goes well with salmon.',
-    grade: 4.5,
-    food: 'Grilled salmon',
-    beer: {
-      name: 'Punk IPA',
-      type: 'IPA',
-      brewery: 'Brewdog',
-      country: 'Scotland',
-      wortStrength: 13.1,
-      alcohol: 5.6,
-      color: 13.5,
-      ebu: 35.5
-    }
-  }
-];
+import {Component, OnInit} from '@angular/core';
+import {Beer, Tasting} from './entities';
+import {TastingService} from './tasting.service';
 
 @Component({
   selector: 'beers-app',
@@ -35,9 +15,20 @@ const mockTastings: Tasting[] = [
         <td>{{tasting.grade}}</td>
         <td>{{tasting.notes}}</td>
       </tr>
-    </table>`
+    </table>`,
+    providers: [TastingService]
 })
 
-export class AppComponent {
-  tastings = mockTastings;
+export class AppComponent implements OnInit {
+  tastings: Tasting[];
+
+  constructor(private tastingService: TastingService) {}
+
+  getTastings(): void {
+    this.tastingService.getTastings().then(tastings => this.tastings = tastings);
+  }
+
+  ngOnInit(): void {
+    this.getTastings();
+  }
 }
