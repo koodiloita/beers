@@ -24,13 +24,20 @@ export class TastingService {
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
     return this.http.post(this.baseUrl, mapTastingToRequestObject(newTasting), options)
-                    .map(this.extractObject)
+                    .map(this.extractString)
                     .toPromise();
   }
 
-  private extractObject(res: Response) {
-    const body = res.json();
-    return body || {};
+  deleteTasting(tasting: Tasting): Promise<string> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+    return this.http.delete(`${this.baseUrl}/${tasting.id}`, options)
+                    .map(this.extractString)
+                    .toPromise();
+  }
+
+  private extractString(res: Response) {
+    return res.toString();
   }
 
   private extractArray(res: Response) {

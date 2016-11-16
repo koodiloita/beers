@@ -13,6 +13,7 @@ import {TastingService} from './tasting.service';
         <td>{{tasting.date}}</td>
         <td>{{tasting.grade}}</td>
         <td>{{tasting.notes}}</td>
+        <td><a class="btn btn-default btn-success" (click)="deleteTasting(tasting)" role="button">Delete</a></td>
       </tr>
     </table>`,
     providers: [TastingService]
@@ -25,6 +26,11 @@ export class TastingsComponent implements OnInit {
 
   getTastings(): void {
     this.tastingService.getTastings().then(tastings => this.tastings = tastings);
+  }
+
+  deleteTasting(tasting: Tasting): void {
+    this.tastingService.deleteTasting(tasting);
+    this.getTastings();
   }
 
   ngOnInit(): void {

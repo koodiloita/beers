@@ -39,8 +39,8 @@ export function mapTastingToRequestObject(tasting: Tasting) {
   }
 }
 
-export function mapResponseToTastings(requestBody): Tasting[] {
-  return requestBody.map(mapServerObjectToTasting);
+export function mapResponseToTastings(responseBody): Tasting[] {
+  return responseBody.map(mapServerObjectToTasting);
 }
 
 function mapServerObjectToTasting(serverObject): Tasting {

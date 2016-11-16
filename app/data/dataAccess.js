@@ -1,6 +1,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 
 const connectionUrl = 'mongodb://localhost:27017/beers';
 let db;
@@ -31,8 +32,17 @@ function createTasting(tasting, callback) {
   });
 }
 
+function deleteTasting(id, callback) {
+  const collection = db.collection('tastings');
+  collection.deleteOne({_id: ObjectId(id)}, (err, result) => {
+    console.log('Deleted tasting', id);
+    callback(null, id);
+  });
+}
+
 module.exports = {
   initializeConnection: initializeConnection,
   getTastings: getTastings,
-  createTasting: createTasting
+  createTasting: createTasting,
+  deleteTasting: deleteTasting
 };

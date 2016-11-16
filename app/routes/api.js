@@ -14,4 +14,11 @@ router.post('/tastings/', function(req, res, next) {
   });
 });
 
+router.delete('/tastings/:id', function(req, res, next) {
+  const id = req.params.id;
+  dataAccess.deleteTasting(id, (err, deletedId) => {
+    res.send(deletedId);
+  });
+});
+
 module.exports = router;
