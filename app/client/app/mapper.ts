@@ -39,11 +39,7 @@ export function mapTastingToRequestObject(tasting: Tasting) {
   }
 }
 
-export function mapResponseDataToTasting(response): Tasting {
-  return mapServerObjectToTasting(response);
-}
-
-export function mapRequestToTastings(requestBody): Tasting[] {
+export function mapResponseToTastings(requestBody): Tasting[] {
   return requestBody.map(mapServerObjectToTasting);
 }
 
@@ -65,6 +61,6 @@ function mapServerObjectToTasting(serverObject): Tasting {
   tasting.grade = Number(serverObject.grade);
   tasting.food = serverObject.food;
   tasting.beer = beer;
-  tasting.id = serverObject.id;
+  tasting.id = serverObject._id;
   return tasting;
 }

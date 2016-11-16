@@ -8,6 +8,8 @@ const routes = require('./routes/index');
 const api = require('./routes/api');
 const app = express();
 
+const dataAccess = require('./data/dataAccess');
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -47,6 +49,10 @@ app.use((err, req, res, next) => {
     message: err.message,
     error: {}
   });
+});
+
+dataAccess.initializeConnection(() => {
+  console.log('Db connection initialized');
 });
 
 module.exports = app;

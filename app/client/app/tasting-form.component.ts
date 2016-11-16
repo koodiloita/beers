@@ -83,7 +83,6 @@ export class TastingFormComponent {
   }
 
   submitTasting(filledForm: TastingForm): void {
-    console.log('Submitting form', filledForm);
     const newTasting: Tasting = formToTasting(filledForm);
     if (this.tastingService.insertTasting(newTasting)) {
       this.router.navigate(['/tastings']);

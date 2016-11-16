@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const dataAccess = require('../data/mockData');
+const dataAccess = require('../data/dataAccess');
 
 router.get('/tastings/', function(req, res, next) {
   dataAccess.getTastings((err, tastings) => {
